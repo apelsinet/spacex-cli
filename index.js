@@ -13,7 +13,7 @@ const STATUS = {
 class RenderUi {
 	constructor() {
 		this.fetchStatus = null;
-		this.data = [];
+		this.data = null;
 		this.interval = null;
 	}
 
@@ -61,6 +61,10 @@ class RenderUi {
 		return `╠${'═'.repeat(window.width - 2)}╣\n`;
 	}
 
+	renderLineBottom() {
+		return `╚${'═'.repeat(window.width - 2)}╝\n`;
+	}
+
 	renderRow(message) {
 		return `║${message}${' '.repeat(window.width - 2 - message.length)}║\n`;
 	}
@@ -81,31 +85,77 @@ class RenderUi {
 				break;
 		}
 
-		return (
-			this.renderLineTop() +
-			this.renderRow(message) +
-			this.renderLineMiddle()
-		);
+		return this.renderLineTop() + this.renderRow(message);
 	}
 
-	renderRocket() {
-        const timeFactor = parseInt(moment().format('s'), 10) / 60;
-        const smokeLength = (window.width - 6) * timeFactor;
+	renderLaunchSite() {
+		if (!this.data) {
+			return this.renderRow('');
+		}
+		const launchSite = this.data[0].launch_site.site_name_long;
+		const message = `Launch site: ${launchSite}`;
+		return this.renderRow(message);
+	}
+
+	renderAnimation() {
+		const timeFactor = parseInt(moment().format('s'), 10) / 60;
+		const smokeLength = (window.width - 6) * timeFactor;
 		const message = `${'~'.repeat(smokeLength)}▶▭▭▸`;
 		return this.renderRow(message);
 	}
 
+	renderRocketData() {
+		if (!this.data) {
+			return this.renderRow('');
+		}
+		const rocketType = this.data[0].rocket.rocket_name;
+		const messageUpper = `Rocket: ${rocketType}`;
+		let messageLower = '';
+		const { cores } = this.data[0].rocket.first_stage;
+		if (cores.length === 1) {
+			messageLower = `1 core, S/N: ${cores[0].core_serial}${
+				cores[0].reused
+					? ', reused (Flight ' + cores[0].flight + ')'
+					: ''
+			}`;
+		} else {
+			messageLower = `3 cores, S/N: ${cores[0].core_serial} ${
+				cores[1].core_serial
+			} ${cores[2].core_serial}`;
+		}
+
+		return this.renderRow(messageUpper) + this.renderRow(messageLower);
+	}
+
+	renderPayloadData() {
+		if (!this.data) {
+			return this.renderRow('');
+		}
+		const payload = this.data[0].rocket.second_stage.payloads[0];
+		return (
+			this.renderRow(
+				`Payload: ${payload.payload_type}, ID: ${
+					payload.payload_id
+				}, customer: ${payload.customers[0]}`,
+			) +
+			this.renderRow(
+				`Orbit: ${payload.orbit}, mass: ${payload.payload_mass_kg}kg`,
+			)
+		);
+	}
+
 	ui() {
-		return this.renderHeader() + this.renderRocket();
+		return (
+			this.renderHeader() +
+			this.renderLaunchSite() +
+			this.renderAnimation() +
+			this.renderRocketData() +
+			this.renderLineMiddle() +
+			this.renderPayloadData() +
+			this.renderLineBottom()
+		);
 	}
 }
 
 const space = new RenderUi();
 space.draw();
-
-vorpal.command('fetch', 'Fetches new data').action(function(args, callback) {
-	space.getLaunchData();
-	callback();
-});
-
-// vorpal.delimiter('$').show();
