@@ -1,38 +1,29 @@
 {
-	"name": "<%= moduleName %>-cli",
-	"version": "0.0.0",
-	"description": "",
-	"license": "MIT",
-	"repository": "<%= githubUsername %>/<%= moduleName %>-cli",
-	"author": {
-		"name": "<%= name %>",
-		"email": "<%= email %>",
-		"url": "<%= website %>"
-	},
-	"bin": {
-		"<%= moduleName %>": "cli.js"
-	},
-	"engines": {
-		"node": ">=4"
-	},
-	"scripts": {
-		"test": "xo && ava"
-	},
-	"files": [
-		"cli.js"
-	],
-	"keywords": [
-		"cli",
-		"cli-app",
-		""
-	],
-	"dependencies": {
-		"meow": "^3.7.0",
-		"<%= moduleName %>": "^0.0.0"
-	},
-	"devDependencies": {
-		"ava": "^0.20.0",
-		"execa": "^0.7.0",
-		"xo": "^0.18.2"
-	}
+  "name": "spacex-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apelsinet/spacex-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apelsinet/spacex-cli/issues"
+  },
+  "homepage": "https://github.com/apelsinet/spacex-cli#readme",
+  "devDependencies": {
+    "jest": "^22.2.2"
+  },
+  "dependencies": {
+    "es6-promise": "^4.2.4",
+    "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.20.1",
+    "vorpal": "^1.12.0",
+    "window-size": "^1.1.0"
+  }
 }
