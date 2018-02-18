@@ -4,7 +4,7 @@
   "description": "CLI tool for showing data about next upcoming SpaceX launch",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/apelsinet/spacex-cli#readme",
   "devDependencies": {
-    "jest": "^22.2.2"
+    "jest": "^22.2.2",
+    "nodemon": "^1.15.0"
   },
   "dependencies": {
+    "blessed": "^0.1.81",
     "es6-promise": "^4.2.4",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.20.1",
