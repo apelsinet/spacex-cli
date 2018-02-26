@@ -4,7 +4,6 @@
         "parserOptions": {
             "ecmaVersion": 6,
             "ecmaFeatures": {
-                "jsx": true,
                 "experimentalObjectRestSpread": true
             },
             "sourceType": "module"
@@ -18,10 +17,6 @@
             "node": true,
             "jest": true
         },
-        "plugins": [
-            "react",
-            "class-property"
-        ],
         "rules": {
             "no-console": 0,
             "new-cap": 0,
@@ -30,12 +25,6 @@
             "no-use-before-define": 0,
             "eol-last": 0,
             "quotes": [2, "single", "avoid-escape"],
-            "jsx-quotes": 1,
-            "react/jsx-no-undef": 1,
-            "react/jsx-uses-react": 1,
-            "react/jsx-uses-vars": 1,
-            "react/prop-types": 1,
             "semi": 2,
-            "class-property/class-property-semicolon": 2
         }
 }
