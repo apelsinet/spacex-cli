@@ -1,5 +1,7 @@
 # Space-X CLI tool #
 
+![Screenshot of CLI tool with next launch data](/screenshot.png?raw=true)
+
 Requirements:
 * Node.js >= 6.4.0
 
